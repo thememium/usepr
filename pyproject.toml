@@ -19,8 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-usepr = "usepr:main"
-
+usepr = "usecli:main"
 [build-system]
 requires = ["uv_build>=0.11.21,<0.12.0"]
 build-backend = "uv_build"
@@ -67,3 +66,8 @@ format = "uv run ruff format ."
 deptry = "uv deptry ."
 typecheck = "uv run ty check"
 release = "uv run usechange release"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
