@@ -44,9 +44,12 @@ class GenerateCommand(BaseCommand):
         console.print(f"[bold {theme.PRIMARY}]Pull Request Summary Generator")
 
         default_branch = get_default_branch(repo).strip()
-        base_branch = Prompt.ask(
-            f"\n[bold {theme.ACCENT}]Base branch to diff against[/bold {theme.ACCENT}] [dim](default: {default_branch})[/dim]",
-            default="",
+        base_branch = (
+            Prompt.ask(
+                f"\n[bold {theme.ACCENT}]Base branch to diff against[/bold {theme.ACCENT}] [dim](default: {default_branch})[/dim]",
+                default="",
+            )
+            or ""
         ).strip()
 
         if not base_branch:
@@ -91,15 +94,20 @@ class GenerateCommand(BaseCommand):
             word_wrap=True,
         )
         console.print(
-            Panel(summary_md, title="Pull Request Summary", border_style="cyan")
+            Panel(
+                summary_md, title="Pull Request Summary", border_style=theme.SECONDARY
+            )
         )
 
         # Ask if user wants to copy to clipboard
         copy_to_clipboard = (
-            Prompt.ask(
-                "\n[bold yellow]Copy to clipboard?[/bold yellow]",
-                default="y",
-                choices=["y", "n"],
+            (
+                Prompt.ask(
+                    f"\n[bold {theme.WARNING}]Copy to clipboard?[/bold {theme.WARNING}]",
+                    default="y",
+                    choices=["y", "n"],
+                )
+                or ""
             )
             .lower()
             .strip()
@@ -107,8 +115,10 @@ class GenerateCommand(BaseCommand):
         if copy_to_clipboard in ["y", "yes"]:
             try:
                 pyperclip.copy(result.summary)
-                console.print("[bold green]✓ Summary copied to clipboard![/bold green]")
+                console.print(
+                    f"[bold {theme.SECONDARY}]✓ Summary copied to clipboard![/bold {theme.SECONDARY}]"
+                )
             except Exception as e:
                 console.print(
-                    f"[bold red]✗ Failed to copy to clipboard: {e}[/bold red]"
+                    f"[bold {theme.ERROR}]✗ Failed to copy to clipboard: {e}[/bold {theme.ERROR}]"
                 )
