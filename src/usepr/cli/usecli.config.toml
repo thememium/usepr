@@ -1,0 +1,11 @@
+[usecli]
+command_name = "usepr"
+title = "usepr"
+title_file = "themes/logo.txt"
+title_font = "ansi_regular"
+description = "Generate Pull Request based on git diff"
+commands_dir = "commands"
+templates_dir = "templates"
+themes_dir = "themes"
+theme = "default"
+hide_inspire = false
