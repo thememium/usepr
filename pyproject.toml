@@ -10,8 +10,9 @@ classifiers = [
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
 ]
-# license = "MIT"
-# license-files = ["LICEN[CS]E*"]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
 dependencies = [
   "dspy>=3.2.1",
   "pyperclip>=1.11.0",
