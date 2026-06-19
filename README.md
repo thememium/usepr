@@ -56,13 +56,13 @@ usepr (`usepr`) is a Python CLI that generates pull request summaries from your 
 ### Install usepr with uv (recommended)
 
 ```sh
-uv add usepr
+uv tool install usepr
 ```
 
-### Install with pip (alternative)
+### Install with pipx (alternative)
 
 ```sh
-pip install usepr
+pipx install usepr
 ```
 
 ### Generate a PR summary
