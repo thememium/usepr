@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import os
+from typing import Annotated, Optional
 
 import pyperclip
+import typer
 from rich.panel import Panel
 from rich.syntax import Syntax
 from usecli import BaseCommand, Prompt, console, theme
 
+from usepr.configs.dspy import configure_dspy
 from usepr.modules.pull_request_summary_generator import (
     PullRequestSummaryGeneratorModule,
 )
@@ -78,7 +81,13 @@ class GenerateCommand(BaseCommand):
 
     def handle(
         self,
+        model: Annotated[
+            Optional[str],
+            typer.Option("-m", "--model", help="Override the default LLM model."),
+        ] = None,
     ) -> None:
+
+        configure_dspy(model)
 
         # Get absolute path and verify it's a git repo
         repo_path = "."  # Current directory
