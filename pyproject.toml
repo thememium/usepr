@@ -17,6 +17,7 @@ classifiers = [
 dependencies = [
     "dspy>=3.2.1",
     "pyperclip>=1.11.0",
+    "rich>=15.0.0",
     "usecli>=0.1.67",
 ]
 

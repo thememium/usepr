@@ -1795,6 +1795,7 @@ source = { editable = "." }
 dependencies = [
     { name = "dspy" },
     { name = "pyperclip" },
+    { name = "rich" },
     { name = "usecli" },
 ]
 
@@ -1813,6 +1814,7 @@ dev = [
 requires-dist = [
     { name = "dspy", specifier = ">=3.2.1" },
     { name = "pyperclip", specifier = ">=1.11.0" },
+    { name = "rich", specifier = ">=15.0.0" },
     { name = "usecli", specifier = ">=0.1.67" },
 ]
 
