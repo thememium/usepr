@@ -2,6 +2,7 @@ import dspy
 
 from usepr.signatures.pull_request_summary_generator import (
     RULES,
+    TEMPLATE_RULES,
     PullRequestSummaryGeneratorSignature,
 )
 
@@ -13,8 +14,17 @@ class PullRequestSummaryGeneratorModule(dspy.Module):
             PullRequestSummaryGeneratorSignature
         )
 
-    def forward(self, commits: str, related_issues: str | None = None):
+    def forward(
+        self,
+        commits: str,
+        related_issues: str | None = None,
+        template: str | None = None,
+    ):
+        rules = TEMPLATE_RULES if template else RULES
         result = self.diff_to_pull_request_summary(
-            commits=commits, rules=RULES, related_issues=related_issues
+            commits=commits,
+            rules=rules,
+            related_issues=related_issues,
+            template=template,
         )
         return result
