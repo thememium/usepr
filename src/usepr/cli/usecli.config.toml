@@ -1,7 +1,7 @@
 [usecli]
 command_name = "usepr"
 title = "usepr"
-title_file = "themes/logo.txt"
+title_file = "themes/title.txt"
 title_font = "ansi_regular"
 description = "Generate Pull Request based on git diff"
 commands_dir = "commands"
