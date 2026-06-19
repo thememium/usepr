@@ -8,4 +8,4 @@ commands_dir = "commands"
 templates_dir = "templates"
 themes_dir = "themes"
 theme = "default"
-hide_inspire = false
+hide_inspire = true
