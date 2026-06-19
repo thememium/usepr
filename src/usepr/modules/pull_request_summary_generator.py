@@ -20,7 +20,12 @@ class PullRequestSummaryGeneratorModule(dspy.Module):
         related_issues: str | None = None,
         template: str | None = None,
     ):
-        rules = TEMPLATE_RULES if template else RULES
+        if template:
+            rules = TEMPLATE_RULES
+        elif not related_issues or not related_issues.strip():
+            rules = RULES[2:]
+        else:
+            rules = RULES
         result = self.diff_to_pull_request_summary(
             commits=commits,
             rules=rules,
