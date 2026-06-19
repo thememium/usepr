@@ -19,6 +19,7 @@ from usepr.utils.git import (
     parse_commits,
     resolve_ref,
 )
+from usepr.utils.github import PrTemplate, find_pr_templates
 
 
 class GenerateCommand(BaseCommand):
@@ -30,6 +31,50 @@ class GenerateCommand(BaseCommand):
 
     def aliases(self) -> list[str]:
         return ["gen"]
+
+    def _prompt_for_template(self, templates: list[PrTemplate]) -> PrTemplate | None:
+        """Prompt the user to select a PR template, or skip."""
+        if not templates:
+            return None
+
+        if len(templates) == 1:
+            t = templates[0]
+            label = t.name or os.path.basename(t.path)
+            use = (
+                (
+                    Prompt.ask(
+                        f"\n[bold {theme.ACCENT}]Found PR template:[/bold {theme.ACCENT}] {label} — use it?",
+                        default="y",
+                        choices=["y", "n"],
+                        show_choices=False,
+                    )
+                    or ""
+                )
+                .lower()
+                .strip()
+            )
+            return t if use == "y" else None
+
+        console.print(
+            f"\n[bold {theme.ACCENT}]Found {len(templates)} PR templates:[/bold {theme.ACCENT}]"
+        )
+        for i, t in enumerate(templates, 1):
+            label = t.name or os.path.basename(t.path)
+            console.print(f"  {i}. {label} [dim]({t.path})[/dim]")
+
+        console.print("  0. [dim]Skip template[/dim]")
+
+        choice = Prompt.ask(
+            "Select a template number",
+            default="0",
+        )
+        try:
+            idx = int(choice) if choice else 0
+        except ValueError:
+            return None
+        if idx == 0 or idx > len(templates):
+            return None
+        return templates[idx - 1]
 
     def handle(
         self,
@@ -82,8 +127,16 @@ class GenerateCommand(BaseCommand):
             default="",
         )
 
+        templates = find_pr_templates(repo)
+        selected_template = self._prompt_for_template(templates)
+        template_content = selected_template.content if selected_template else None
+
         program = PullRequestSummaryGeneratorModule()
-        result = program(commits=commits, related_issues=related_issues)
+        result = program(
+            commits=commits,
+            related_issues=related_issues,
+            template=template_content,
+        )
 
         # Print reasoning and summary using rich
         summary_md = Syntax(
