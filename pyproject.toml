@@ -1,7 +1,7 @@
 [project]
 name = "usepr"
 version = "0.1.2"
-description = "Add your description here"
+description = "AI-powered PR summary generator for Git repositories"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
 requires-python = ">=3.13"
