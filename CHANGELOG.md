@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.1.2 (2026-06-21)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.1...v0.1.2)
+
+### 💅 Refactors
+
+- **test**: clean up unused imports and formatting in test files ([2dd4527](https://github.com/thememium/usepr/commit/2dd452742e0e1b6e0caa534357a527ce6a602f54))
+
+### 📖 Documentation
+
+- add usepr logo with dark background to documentation ([47bf9e3](https://github.com/thememium/usepr/commit/47bf9e39fb8f2027bf90753334570061b75607a3))
+- **README**: replace title header with logo image ([392a4c9](https://github.com/thememium/usepr/commit/392a4c91222f87ae7ff484534373204b3069f83b))
+- add bug report issue template ([4100957](https://github.com/thememium/usepr/commit/410095745ee577c666962b2e09b1190236a59763))
+- **.github**: add comprehensive contributing guide ([e53b3dd](https://github.com/thememium/usepr/commit/e53b3dd169b5f626d7b8520dd8308baa1b1a3ad7))
+- **SECURITY**: add vulnerability reporting guidelines ([6647cfa](https://github.com/thememium/usepr/commit/6647cfacfb09fed8b00caaa81a16c2a20e24607f))
+
+### 🏡 Chore
+
+- add license file and pyproject metadata ([06d62df](https://github.com/thememium/usepr/commit/06d62df146113cf4899cd7709ab1b7004880766b))
+
+### ✅ Tests
+
+- **smoke**: add smoke test for usepr CLI and import ([2aaaac7](https://github.com/thememium/usepr/commit/2aaaac7e3572f9986ac979b04246703a654c7920))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.1 (2026-06-19)
 
 ### 🚀 Enhancements
