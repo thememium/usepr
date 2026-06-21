@@ -1,16 +1,24 @@
 # Changelog
 
+## v0.1.4 (2026-06-21)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.3...v0.1.4)
+
+### 🏡 Chore
+
+- **pyproject**: bump usecli to 0.1.68 ([9f31317](https://github.com/thememium/usepr/commit/9f31317ea82a8ab604a8fe5a69f03f377789b4b0))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.3 (2026-06-21)
 
 [Compare changes](https://github.com/thememium/usepr/compare/v0.1.2...v0.1.3)
 
-### 📖 Documentation
+### 🏡 Chore
 
-- **pyproject.toml**: update package description to reflect functionality ([0290254](https://github.com/thememium/usepr/commit/029025474afaae74380f6a9cc536151cfec65f43))
-
-### 🤖 CI
-
-- **publish**: add GitHub Actions workflow to publish Python packages ([a7c3fa6](https://github.com/thememium/usepr/commit/a7c3fa6c55c1f06f70a9e7c7221e18a22376ab03))
+- **pyproject**: bump usecli to 0.1.68 ([9f31317](https://github.com/thememium/usepr/commit/9f31317ea82a8ab604a8fe5a69f03f377789b4b0))
 
 ### Contributors
 
