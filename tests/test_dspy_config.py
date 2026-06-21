@@ -3,10 +3,8 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
 from unittest.mock import MagicMock, patch
 
-import pytest
 import yaml
 
 from usepr.configs.dspy import (
@@ -19,7 +17,6 @@ from usepr.configs.dspy import (
     get_lm,
     load_config,
 )
-
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -149,9 +146,7 @@ class TestGetLM:
 
     @patch("usepr.configs.dspy.load_config")
     @patch("dspy.LM")
-    def test_cache_from_config(
-        self, mock_lm: MagicMock, mock_load: MagicMock
-    ) -> None:
+    def test_cache_from_config(self, mock_lm: MagicMock, mock_load: MagicMock) -> None:
         mock_load.return_value = {"cache": True}
         get_lm()
         call_kwargs = mock_lm.call_args[1]

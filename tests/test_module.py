@@ -4,13 +4,10 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from usepr.modules.pull_request_summary_generator import (
     PullRequestSummaryGeneratorModule,
 )
 from usepr.signatures.pull_request_summary_generator import RULES, TEMPLATE_RULES
-
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -107,9 +104,7 @@ class TestModuleRuleSelection:
 
 
 class TestModuleForward:
-    @patch(
-        "usepr.modules.pull_request_summary_generator.dspy.ChainOfThought"
-    )
+    @patch("usepr.modules.pull_request_summary_generator.dspy.ChainOfThought")
     def test_returns_chain_of_thought_result(self, mock_cot: MagicMock) -> None:
         mock_predictor = MagicMock()
         expected = MagicMock(reasoning="step by step", summary="# Summary")
@@ -122,9 +117,7 @@ class TestModuleForward:
         assert result.reasoning == "step by step"
         assert result.summary == "# Summary"
 
-    @patch(
-        "usepr.modules.pull_request_summary_generator.dspy.ChainOfThought"
-    )
+    @patch("usepr.modules.pull_request_summary_generator.dspy.ChainOfThought")
     def test_passes_commits_as_positional(self, mock_cot: MagicMock) -> None:
         mock_predictor = MagicMock()
         mock_predictor.return_value = MagicMock(reasoning="r", summary="s")
@@ -136,9 +129,7 @@ class TestModuleForward:
         call_kwargs = mock_predictor.call_args[1]
         assert call_kwargs["commits"] == "feat: one----fix: two"
 
-    @patch(
-        "usepr.modules.pull_request_summary_generator.dspy.ChainOfThought"
-    )
+    @patch("usepr.modules.pull_request_summary_generator.dspy.ChainOfThought")
     def test_passes_related_issues(self, mock_cot: MagicMock) -> None:
         mock_predictor = MagicMock()
         mock_predictor.return_value = MagicMock(reasoning="r", summary="s")
@@ -150,9 +141,7 @@ class TestModuleForward:
         call_kwargs = mock_predictor.call_args[1]
         assert call_kwargs["related_issues"] == "#42, #43"
 
-    @patch(
-        "usepr.modules.pull_request_summary_generator.dspy.ChainOfThought"
-    )
+    @patch("usepr.modules.pull_request_summary_generator.dspy.ChainOfThought")
     def test_passes_template(self, mock_cot: MagicMock) -> None:
         mock_predictor = MagicMock()
         mock_predictor.return_value = MagicMock(reasoning="r", summary="s")

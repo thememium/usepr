@@ -3,12 +3,8 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List
-
-import pytest
 
 from usepr.utils.github import PrTemplate, find_pr_templates
-
 
 # ---------------------------------------------------------------------------
 # PrTemplate dataclass
@@ -197,6 +193,6 @@ class TestReadText:
         f = tmp_path / "unreadable.md"
         f.write_bytes(b"\x80\x81\x82")  # Invalid UTF-8
         # Should still try, may return something or None depending on errors handling
-        result = _read_text(f)
         # The function doesn't specify errors=replace, so it may raise or return
         # Either way, it shouldn't crash
+        _read_text(f)

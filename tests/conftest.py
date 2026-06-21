@@ -33,7 +33,7 @@ def template_dir(github_dir: Path) -> Path:
 @pytest.fixture
 def mock_subprocess_run(monkeypatch: pytest.MonkeyPatch) -> Generator:
     """Patch subprocess.run for git command testing."""
-    from unittest.mock import MagicMock, patch
+    from unittest.mock import MagicMock
 
     mock = MagicMock()
     monkeypatch.setattr("subprocess.run", mock)
@@ -43,7 +43,7 @@ def mock_subprocess_run(monkeypatch: pytest.MonkeyPatch) -> Generator:
 @pytest.fixture
 def mock_subprocess_check_output(monkeypatch: pytest.MonkeyPatch) -> Generator:
     """Patch subprocess.check_output for git command testing."""
-    from unittest.mock import MagicMock, patch
+    from unittest.mock import MagicMock
 
     mock = MagicMock()
     monkeypatch.setattr("subprocess.check_output", mock)
