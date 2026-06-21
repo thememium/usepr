@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://github.com/thememium/usepr">
-    <h1>usepr</h1>
+    <img src="https://raw.githubusercontent.com/thememium/usepr/refs/heads/master/docs/images/usepr-logo-dark-bg.png" alt="usePR" width="360" height="162">
   </a>
 
   <p align="center">
