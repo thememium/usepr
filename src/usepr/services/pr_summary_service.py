@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from usepr.modules.pull_request_summary_generator import (
     PullRequestSummaryGeneratorModule,
@@ -77,8 +76,8 @@ def gather_commits(repo_path: str, base_branch: str) -> CommitContext:
 
 def generate_summary(
     commits: list[str],
-    related_issues: Optional[str] = None,
-    template: Optional[str] = None,
+    related_issues: str | None = None,
+    template: str | None = None,
 ) -> SummaryResult:
     """Generate a PR summary from commits.
 
