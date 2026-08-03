@@ -239,7 +239,7 @@ class TestGetCommitsBetween:
         call_args = mock_run.call_args
         cmd = call_args[0][0]
         # Check format string includes %s and %b
-        fmt_arg = [a for a in cmd if a.startswith("--format=")][0]
+        fmt_arg = next(a for a in cmd if a.startswith("--format="))
         assert "%s" in fmt_arg
         assert "%b" in fmt_arg
 
