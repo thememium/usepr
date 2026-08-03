@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 import dspy
 
 RULES = [
@@ -25,14 +23,14 @@ TEMPLATE_RULES = [
 class PullRequestSummaryGeneratorSignature(dspy.Signature):
     """Generate a concise summary of a pull request based on a list of conventional commit messages. The summary should highlight the main changes introduced by the commits, and may include markdown tables or mermaid diagrams for better visualization when appropriate."""
 
-    rules: List[str] = dspy.InputField(
+    rules: list[str] = dspy.InputField(
         desc="A list of rules to follow when generating the summary."
     )
-    commits: List[str] = dspy.InputField(desc="A list of conventional commit messages.")
-    related_issues: Optional[str] = dspy.InputField(
+    commits: list[str] = dspy.InputField(desc="A list of conventional commit messages.")
+    related_issues: str | None = dspy.InputField(
         default=None, desc="A list of related issues or tasks, if any."
     )
-    template: Optional[str] = dspy.InputField(
+    template: str | None = dspy.InputField(
         default=None,
         desc="A GitHub pull request template to fill out. When provided, the summary must follow this template's structure and fill in each section.",
     )
