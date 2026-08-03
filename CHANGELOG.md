@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.1.6 (2026-08-03)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.5...v0.1.6)
+
+### 💅 Refactors
+
+- **generate_command**: adjust type hint for model and improve clipboard error handling ([e40606e](https://github.com/thememium/usepr/commit/e40606e9089852f2acc15aba3e8b1ccef8c3aa2a))
+- **pr_summary_service**: drop Optional import and use | None ([f2e34ca](https://github.com/thememium/usepr/commit/f2e34ca900f7baf8dd2a7ead6ba52bd81fc5a179))
+- **pr_summary_generator**: update type hints, remove typing import ([e494d9c](https://github.com/thememium/usepr/commit/e494d9c9439cdc936607afadb684e6d948057847))
+- **usepr/utils**: update type hints to use built‑in generics and remove unused typing imports ([5c1e9cc](https://github.com/thememium/usepr/commit/5c1e9ccc880f391e6258aeea39cc70e88904da69))
+- **tests**: update test imports and format extraction logic ([f1a88d0](https://github.com/thememium/usepr/commit/f1a88d063cac0c00908089bf801e0cff038238c1))
+
+### 🏡 Chore
+
+- **pyproject.toml**: bump dependency versions ([c71a7bb](https://github.com/thememium/usepr/commit/c71a7bbb8b0bf03f418457c7756864c3fbe6cb85))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.5 (2026-06-21)
 
 [Compare changes](https://github.com/thememium/usepr/compare/v0.1.4...v0.1.5)
