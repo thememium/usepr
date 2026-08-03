@@ -1,11 +1,10 @@
 import subprocess
 import sys
-from typing import List, Optional
 
 from usecli import console
 
 
-def run(cmd: list[str], cwd: Optional[str] = None) -> str:
+def run(cmd: list[str], cwd: str | None = None) -> str:
     """
     Run a command and return its output as a string.
 
@@ -41,7 +40,7 @@ def ensure_git_repo(repo_path: str) -> None:
 
 
 def get_commits_between(
-    repo_path: str, prev_tag: Optional[str], latest_tag: str = "HEAD"
+    repo_path: str, prev_tag: str | None, latest_tag: str = "HEAD"
 ) -> str:
     """
     Get commit messages between two tags.
@@ -104,6 +103,7 @@ def resolve_ref(repo_path: str, ref: str) -> str:
             ["git", "rev-parse", "--verify", candidate],
             cwd=repo_path,
             capture_output=True,
+            check=False,
         )
         if result.returncode == 0:
             return candidate
@@ -113,7 +113,7 @@ def resolve_ref(repo_path: str, ref: str) -> str:
     sys.exit(1)
 
 
-def parse_commits(commit_text: str) -> List[str]:
+def parse_commits(commit_text: str) -> list[str]:
     """
     Parse the commit output into a list of individual commit messages.
 

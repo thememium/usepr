@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
 
 
 @dataclass
@@ -13,7 +12,7 @@ class PrTemplate:
 
     path: str
     content: str
-    name: Optional[str] = None
+    name: str | None = None
 
 
 TEMPLATE_FILENAMES = ["PULL_REQUEST_TEMPLATE.md"]
@@ -23,7 +22,7 @@ TEMPLATE_DIR_NAME = "PULL_REQUEST_TEMPLATE"
 GITHUB_DIR = ".github"
 
 
-def _read_text(path: Path) -> Optional[str]:
+def _read_text(path: Path) -> str | None:
     """Read a text file, returning None if unreadable."""
     try:
         return path.read_text(encoding="utf-8").strip()
@@ -31,7 +30,7 @@ def _read_text(path: Path) -> Optional[str]:
         return None
 
 
-def find_pr_templates(repo_path: str) -> List[PrTemplate]:
+def find_pr_templates(repo_path: str) -> list[PrTemplate]:
     """
     Find all PR templates in the repository.
 
@@ -47,7 +46,7 @@ def find_pr_templates(repo_path: str) -> List[PrTemplate]:
         List of PrTemplate objects found. Empty list if none found.
     """
     root = Path(repo_path)
-    templates: List[PrTemplate] = []
+    templates: list[PrTemplate] = []
 
     # 1. .github/PULL_REQUEST_TEMPLATE.md
     github_dir = root / GITHUB_DIR
