@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Annotated, Optional
+from typing import Annotated
 
 import pyperclip
 import typer
@@ -77,7 +77,7 @@ class GenerateCommand(BaseCommand):
     def handle(
         self,
         model: Annotated[
-            Optional[str],
+            str | None,
             typer.Option("-m", "--model", help="Override the default LLM model."),
         ] = None,
     ) -> None:
@@ -172,7 +172,7 @@ class GenerateCommand(BaseCommand):
                 console.print(
                     f"[bold {theme.SECONDARY}]✓ Summary copied to clipboard![/bold {theme.SECONDARY}]"
                 )
-            except Exception as e:
+            except (pyperclip.PyperclipException, OSError) as e:
                 console.print(
                     f"[bold {theme.ERROR}]✗ Failed to copy to clipboard: {e}[/bold {theme.ERROR}]"
                 )
