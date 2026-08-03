@@ -18,8 +18,8 @@ dependencies = [
   "pyperclip>=1.11.0",
   "pyyaml>=6.0.3",
   "rich>=15.0.0",
-  "typer>=0.26.7",
-  "usecli>=0.1.69",
+  "typer>=0.27.0",
+  "usecli>=0.1.77",
 ]
 
 [project.scripts]
@@ -32,11 +32,11 @@ build-backend = "uv_build"
 dev = [
   "deptry>=0.25.1",
   "isort>=8.0.1",
-  "poethepoet>=0.46.0",
+  "poethepoet>=0.48.0",
   "pytest>=9.1.1",
-  "ruff>=0.15.18",
-  "ty>=0.0.51",
-  "usechange>=0.1.43",
+  "ruff>=0.16.1",
+  "ty>=0.0.65",
+  "usechange>=0.1.45",
 ]
 
 [tool.deptry]
