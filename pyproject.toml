@@ -14,12 +14,12 @@ license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
 dependencies = [
-  "dspy>=3.2.1",
+  "dspy>=3.3.1",
   "pyperclip>=1.11.0",
   "pyyaml>=6.0.3",
   "rich>=15.0.0",
-  "typer>=0.27.0",
-  "usecli>=0.1.77",
+  "typer>=0.27.1",
+  "usecli>=0.1.78",
 ]
 
 [project.scripts]
@@ -34,9 +34,9 @@ dev = [
   "isort>=8.0.1",
   "poethepoet>=0.48.0",
   "pytest>=9.1.1",
-  "ruff>=0.16.1",
-  "ty>=0.0.65",
-  "usechange>=0.1.45",
+  "ruff>=0.16.4",
+  "ty>=0.0.74",
+  "usechange>=0.1.46",
 ]
 
 [tool.deptry]
