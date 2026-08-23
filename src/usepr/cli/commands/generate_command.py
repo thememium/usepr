@@ -19,6 +19,8 @@ from usepr.services.pr_summary_service import (
 )
 from usepr.utils.github import PrTemplate
 
+OTHER_BRANCH = "Other... (type a branch name)"
+
 
 class GenerateCommand(BaseCommand):
     def signature(self) -> str:
@@ -91,17 +93,31 @@ class GenerateCommand(BaseCommand):
 
         from usepr.utils.git import get_branch_selection_options, get_default_branch
 
+        console.line()
+
         default_branch = get_default_branch(repo).strip()
-        base_branch = Menu.select(
-            get_branch_selection_options(repo, default_branch),
+        options = get_branch_selection_options(repo, default_branch) + [OTHER_BRANCH]
+        selected = Menu.select(
+            options,
             title=f"Base branch to diff against (default: {default_branch})",
         )
 
-        if base_branch is None:
+        if selected is None:
             console.print(
                 f"[bold {theme.WARNING}]No base branch selected; aborting.[/bold {theme.WARNING}]"
             )
             return
+
+        if selected == OTHER_BRANCH:
+            base_branch = (
+                Prompt.ask(
+                    f"[bold {theme.ACCENT}]Enter base branch to diff against[/bold {theme.ACCENT}]",
+                    default=default_branch,
+                )
+                or ""
+            ).strip()
+        else:
+            base_branch = selected
 
         commit_ctx = gather_commits(repo, base_branch)
 
