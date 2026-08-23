@@ -132,19 +132,13 @@ class GenerateCommand(BaseCommand):
             )
             return
 
-        # proceed = Prompt.ask(
-        #     "Do you want to proceed with generating the summary?",
-        #     default="y",
-        #     choices=["y", "n"],
-        #     show_choices=False,
-        # )
-        # if proceed and proceed.lower() != "y":
-        #     console.print("Aborting summary generation.")
-        #     return
+        console.line()
 
         related_issues = Prompt.ask(
-            "List any related issues or tasks (comma-separated), or leave blank if none:",
+            f"[bold {theme.ACCENT}]List any related issues or tasks "
+            f"(comma-separated), or leave blank if none[/bold {theme.ACCENT}]",
             default="",
+            show_default=False,
         )
 
         templates = get_templates(repo)
