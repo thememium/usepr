@@ -119,6 +119,11 @@ class GenerateCommand(BaseCommand):
         else:
             base_branch = selected
 
+        console.print(
+            f"[bold {theme.SUCCESS}]Base branch:[/bold {theme.SUCCESS}] "
+            f"[bold {theme.ACCENT}]{base_branch}[/bold {theme.ACCENT}]"
+        )
+
         commit_ctx = gather_commits(repo, base_branch)
 
         if not commit_ctx.commits:
