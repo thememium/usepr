@@ -9,7 +9,7 @@ import pyperclip
 import typer
 from rich.panel import Panel
 from rich.syntax import Syntax
-from usecli import BaseCommand, Menu, Prompt, console, theme
+from usecli import BaseCommand, Menu, Prompt, Spinner, console, theme
 
 from usepr.configs.dspy import configure_dspy
 from usepr.services.pr_summary_service import (
@@ -145,11 +145,12 @@ class GenerateCommand(BaseCommand):
         selected_template = self._prompt_for_template(templates)
         template_content = selected_template.content if selected_template else None
 
-        result = generate_summary(
-            commits=commit_ctx.commits,
-            related_issues=related_issues,
-            template=template_content,
-        )
+        with Spinner("Generating PR summary..."):
+            result = generate_summary(
+                commits=commit_ctx.commits,
+                related_issues=related_issues,
+                template=template_content,
+            )
 
         console.print()
 
