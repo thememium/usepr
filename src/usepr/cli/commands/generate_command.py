@@ -9,7 +9,7 @@ import pyperclip
 import typer
 from rich.panel import Panel
 from rich.syntax import Syntax
-from usecli import BaseCommand, Prompt, console, theme
+from usecli import BaseCommand, Menu, Prompt, console, theme
 
 from usepr.configs.dspy import configure_dspy
 from usepr.services.pr_summary_service import (
@@ -89,19 +89,19 @@ class GenerateCommand(BaseCommand):
         console.clear()
         console.print(f"[bold {theme.PRIMARY}]Pull Request Summary Generator")
 
-        from usepr.utils.git import get_default_branch
+        from usepr.utils.git import get_branch_selection_options, get_default_branch
 
         default_branch = get_default_branch(repo).strip()
-        base_branch = (
-            Prompt.ask(
-                f"\n[bold {theme.ACCENT}]Base branch to diff against[/bold {theme.ACCENT}] [dim](default: {default_branch})[/dim]",
-                default="",
-            )
-            or ""
-        ).strip()
+        base_branch = Menu.select(
+            get_branch_selection_options(repo, default_branch),
+            title=f"Base branch to diff against (default: {default_branch})",
+        )
 
-        if not base_branch:
-            base_branch = default_branch
+        if base_branch is None:
+            console.print(
+                f"[bold {theme.WARNING}]No base branch selected; aborting.[/bold {theme.WARNING}]"
+            )
+            return
 
         commit_ctx = gather_commits(repo, base_branch)
 

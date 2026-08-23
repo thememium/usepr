@@ -9,8 +9,10 @@ import pytest
 
 from usepr.utils.git import (
     ensure_git_repo,
+    get_branch_selection_options,
     get_commits_between,
     get_default_branch,
+    get_local_branches,
     parse_commits,
     resolve_ref,
     run,
@@ -161,6 +163,81 @@ class TestGetDefaultBranch:
         mock_run.side_effect = subprocess.CalledProcessError(1, "git")
 
         assert get_default_branch("/repo") == "master"
+
+
+# ---------------------------------------------------------------------------
+# get_local_branches()
+# ---------------------------------------------------------------------------
+
+
+class TestGetLocalBranches:
+    @patch("usepr.utils.git.run")
+    def test_returns_branches_most_recent_first(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = "feature-a\nmain\nfeature-b"
+        assert get_local_branches("/repo") == ["feature-a", "main", "feature-b"]
+
+        cmd = mock_run.call_args[0][0]
+        assert "--sort=-committerdate" in cmd
+        assert "refs/heads" in cmd
+        assert cmd[-1] == "--format=%(refname:short)"
+
+    @patch("usepr.utils.git.run")
+    def test_empty_output_returns_empty_list(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = ""
+        assert get_local_branches("/repo") == []
+
+    @patch("usepr.utils.git.run")
+    def test_passes_cwd(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = "main"
+        get_local_branches("/some/repo")
+        assert mock_run.call_args[1]["cwd"] == "/some/repo"
+
+
+# ---------------------------------------------------------------------------
+# get_branch_selection_options()
+# ---------------------------------------------------------------------------
+
+
+class TestGetBranchSelectionOptions:
+    @patch("usepr.utils.git.get_local_branches")
+    def test_default_branch_first_then_recency_order(
+        self, mock_branches: MagicMock
+    ) -> None:
+        mock_branches.return_value = ["feature-a", "main", "feature-b"]
+        assert get_branch_selection_options("/repo", "main") == [
+            "main",
+            "feature-a",
+            "feature-b",
+        ]
+
+    @patch("usepr.utils.git.get_local_branches")
+    def test_detects_default_branch_when_not_given(
+        self, mock_branches: MagicMock
+    ) -> None:
+        mock_branches.return_value = ["develop", "main", "feature-x"]
+        with patch("usepr.utils.git.get_default_branch", return_value="develop"):
+            assert get_branch_selection_options("/repo") == [
+                "develop",
+                "main",
+                "feature-x",
+            ]
+
+    @patch("usepr.utils.git.get_local_branches")
+    def test_prepends_default_when_not_in_local_branches(
+        self, mock_branches: MagicMock
+    ) -> None:
+        mock_branches.return_value = ["feature-x"]
+        assert get_branch_selection_options("/repo", "main") == [
+            "main",
+            "feature-x",
+        ]
+
+    @patch("usepr.utils.git.get_local_branches")
+    def test_empty_branches_returns_only_default(
+        self, mock_branches: MagicMock
+    ) -> None:
+        mock_branches.return_value = []
+        assert get_branch_selection_options("/repo", "main") == ["main"]
 
 
 # ---------------------------------------------------------------------------

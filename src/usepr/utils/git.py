@@ -96,6 +96,53 @@ def get_default_branch(repo_path: str) -> str:
             return "master"
 
 
+def get_local_branches(repo_path: str) -> list[str]:
+    """
+    Get local branches sorted by most recently updated (committer date, descending).
+
+    Args:
+        repo_path: Path to the repository.
+
+    Returns:
+        List of local branch names, most recently updated first.
+    """
+    output = run(
+        [
+            "git",
+            "for-each-ref",
+            "--sort=-committerdate",
+            "refs/heads",
+            "--format=%(refname:short)",
+        ],
+        cwd=repo_path,
+    )
+    return [branch for branch in output.splitlines() if branch.strip()]
+
+
+def get_branch_selection_options(
+    repo_path: str, default_branch: str | None = None
+) -> list[str]:
+    """
+    Get local branches ordered for a selection menu: default branch first,
+    then the remaining branches from most recently updated to least.
+
+    Args:
+        repo_path: Path to the repository.
+        default_branch: The default branch to place at the top, or None to
+            detect it automatically.
+
+    Returns:
+        Ordered list of branch options.
+    """
+    branches = get_local_branches(repo_path)
+    if default_branch is None:
+        default_branch = get_default_branch(repo_path).strip()
+    return [
+        default_branch,
+        *(branch for branch in branches if branch != default_branch),
+    ]
+
+
 def resolve_ref(repo_path: str, ref: str) -> str:
     """Resolve a ref, trying the bare name first then origin/<ref>."""
     for candidate in [ref, f"origin/{ref}"]:
