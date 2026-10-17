@@ -1,23 +1,24 @@
 # Changelog
 
-## v0.1.7 (2026-08-23)
+## v0.1.8 (2026-10-17)
 
-[Compare changes](https://github.com/thememium/usepr/compare/v0.1.6...v0.1.7)
-
-### 🚀 Enhancements
-
-- **cli**: add spinner to PR summary generation ([512aa6e](https://github.com/thememium/usepr/commit/512aa6e651b032d9f2be591022ed356292a8abb9))
-- **cli**: display base branch in generate command output ([99cdb6c](https://github.com/thememium/usepr/commit/99cdb6caa3061dcf70e66130f487877a8779d4e2))
-- **cli**: allow custom base branch in generate command ([60599a7](https://github.com/thememium/usepr/commit/60599a7019011494ce65d14e85d56862bc13344f))
-- **git**: provide branch selection utilities and menu integration ([1fde32a](https://github.com/thememium/usepr/commit/1fde32ace1ae437d48097c09d20ff3ac14370201))
-
-### 💅 Refactors
-
-- **generate-command**: streamline confirmation, style related-issues prompt ([7762c22](https://github.com/thememium/usepr/commit/7762c22a5d58b5b4ca13dfafaa80e40582b3193e))
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.7...v0.1.8)
 
 ### 🏡 Chore
 
-- **deps**: bump packages in pyproject.toml to newer releases ([7b3bdab](https://github.com/thememium/usepr/commit/7b3bdabaa39fe94e07713cb6fd6c59bb094da96d))
+- **deps**: bump usecli to 0.1.80 and usechange to 0.1.47 ([f1d5f7d](https://github.com/thememium/usepr/commit/f1d5f7d25f1cfd8966437a05cdc5a029dda390c6))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.7 (2026-10-17)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.6...v0.1.7)
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.80 and usechange to 0.1.47 ([f1d5f7d](https://github.com/thememium/usepr/commit/f1d5f7d25f1cfd8966437a05cdc5a029dda390c6))
 
 ### Contributors
 
