@@ -28,8 +28,9 @@ class TestConstants:
         assert APPLICATION_NAME == "usepr"
 
     def test_default_model_is_set(self) -> None:
-        assert DEFAULT_MODEL  # not empty
-        assert isinstance(DEFAULT_MODEL, str)
+        provider, _, model = DEFAULT_MODEL.partition("/")
+        assert provider == "openrouter"
+        assert model.strip()  # model id is not empty
 
     def test_default_extra_body_structure(self) -> None:
         assert "provider" in DEFAULT_EXTRA_BODY
