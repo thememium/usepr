@@ -1,12 +1,24 @@
 # Changelog
 
-## v0.1.8 (2026-10-17)
+## v0.1.9 (2026-11-13)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.8...v0.1.9)
+
+### 🏡 Chore
+
+- version bump dependencies (#2) (#2) ([4391566](https://github.com/thememium/usepr/commit/43915664411ec54c0becc390bb8faa2e2e077b6c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.8 (2026-11-13)
 
 [Compare changes](https://github.com/thememium/usepr/compare/v0.1.7...v0.1.8)
 
 ### 🏡 Chore
 
-- **deps**: bump usecli to 0.1.80 and usechange to 0.1.47 ([f1d5f7d](https://github.com/thememium/usepr/commit/f1d5f7d25f1cfd8966437a05cdc5a029dda390c6))
+- version bump dependencies (#2) (#2) ([4391566](https://github.com/thememium/usepr/commit/43915664411ec54c0becc390bb8faa2e2e077b6c))
 
 ### Contributors
 
