@@ -63,6 +63,9 @@ exclude = ["**/__pycache__", "**/.venv"]
 # Ty uses rule = "level" format (error, warn, ignore)
 # See all rules at: https://docs.astral.sh/ty/reference/rules/
 
+[tool.coverage.report]
+fail_under = 100
+
 [tool.poe.tasks]
 dev = "uv run usepr"
 clean-full = "sh -c 'uv run isort . && uv run ruff check . --fix && uv run ruff format . && uv run deptry . && uv run ty check'"
