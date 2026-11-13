@@ -6,13 +6,7 @@ from typing import Any
 import dspy
 import yaml
 
-APPLICATION_NAME = "usepr"
-
-DEFAULT_MODEL = "openrouter/openai/gpt-oss-120b"
-
-DEFAULT_EXTRA_BODY: dict[str, Any] = {
-    "provider": {"order": ["groq"], "allow_fallbacks": False}
-}
+DEFAULT_MODEL = "openrouter/openai/gpt-oss-120b:nitro"
 
 CONFIG_DIR = Path.home() / ".config" / "usepr"
 CONFIG_FILE = CONFIG_DIR / "config.yml"
@@ -39,17 +33,10 @@ def get_lm(model: str | None = None) -> dspy.LM:
 
     resolved_model = model or config.get("model") or DEFAULT_MODEL
 
-    extra_body = config.get("extra_body", DEFAULT_EXTRA_BODY)
-    cache = config.get("cache", False)
-
     return dspy.LM(
         resolved_model,
-        cache=cache,
-        extra_body=extra_body,
-        extra_headers={
-            "HTTP-Referer": f"http://{APPLICATION_NAME}.local",
-            "X-Title": APPLICATION_NAME,
-        },
+        cache=config.get("cache", False),
+        engine="lm15",
     )
 
 

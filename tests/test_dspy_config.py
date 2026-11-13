@@ -8,10 +8,8 @@ from unittest.mock import MagicMock, patch
 import yaml
 
 from usepr.configs.dspy import (
-    APPLICATION_NAME,
     CONFIG_DIR,
     CONFIG_FILE,
-    DEFAULT_EXTRA_BODY,
     DEFAULT_MODEL,
     configure_dspy,
     get_lm,
@@ -24,17 +22,10 @@ from usepr.configs.dspy import (
 
 
 class TestConstants:
-    def test_application_name(self) -> None:
-        assert APPLICATION_NAME == "usepr"
-
     def test_default_model_is_set(self) -> None:
-        assert DEFAULT_MODEL  # not empty
-        assert isinstance(DEFAULT_MODEL, str)
-
-    def test_default_extra_body_structure(self) -> None:
-        assert "provider" in DEFAULT_EXTRA_BODY
-        assert "order" in DEFAULT_EXTRA_BODY["provider"]
-        assert "allow_fallbacks" in DEFAULT_EXTRA_BODY["provider"]
+        provider, _, model = DEFAULT_MODEL.partition("/")
+        assert provider == "openrouter"
+        assert model.strip()  # model id is not empty
 
     def test_config_dir_is_under_home(self) -> None:
         assert str(CONFIG_DIR).endswith(".config/usepr")
@@ -154,36 +145,12 @@ class TestGetLM:
 
     @patch("usepr.configs.dspy.load_config")
     @patch("dspy.LM")
-    def test_extra_body_defaults(
+    def test_uses_native_lm15_engine(
         self, mock_lm: MagicMock, mock_load: MagicMock
     ) -> None:
         mock_load.return_value = {}
         get_lm()
-        call_kwargs = mock_lm.call_args[1]
-        assert call_kwargs["extra_body"] == DEFAULT_EXTRA_BODY
-
-    @patch("usepr.configs.dspy.load_config")
-    @patch("dspy.LM")
-    def test_extra_body_from_config(
-        self, mock_lm: MagicMock, mock_load: MagicMock
-    ) -> None:
-        custom_body = {"provider": {"order": ["openai"]}}
-        mock_load.return_value = {"extra_body": custom_body}
-        get_lm()
-        call_kwargs = mock_lm.call_args[1]
-        assert call_kwargs["extra_body"] == custom_body
-
-    @patch("usepr.configs.dspy.load_config")
-    @patch("dspy.LM")
-    def test_extra_headers_contain_app_name(
-        self, mock_lm: MagicMock, mock_load: MagicMock
-    ) -> None:
-        mock_load.return_value = {}
-        get_lm()
-        call_kwargs = mock_lm.call_args[1]
-        headers = call_kwargs["extra_headers"]
-        assert APPLICATION_NAME in headers["HTTP-Referer"]
-        assert headers["X-Title"] == APPLICATION_NAME
+        assert mock_lm.call_args[1]["engine"] == "lm15"
 
 
 # ---------------------------------------------------------------------------
