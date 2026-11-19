@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from usecli import console
+from usecli import console, theme
 
 
 def run(cmd: list[str], cwd: str | None = None) -> str:
@@ -33,9 +33,21 @@ def ensure_git_repo(repo_path: str) -> None:
         SystemExit: If not a git repository.
     """
     try:
-        run(["git", "rev-parse", "--is-inside-work-tree"], cwd=repo_path)
+        inside = run(["git", "rev-parse", "--is-inside-work-tree"], cwd=repo_path)
     except subprocess.CalledProcessError:
-        sys.stderr.write(f"[error] Not a git repository: {repo_path}\n")
+        inside = ""
+
+    if inside.strip() != "true":
+        console.print(
+            f"[bold {theme.ERROR}]Error:[/bold {theme.ERROR}] "
+            f"not a git repository: {repo_path}",
+            highlight=False,
+        )
+        console.print(
+            f"[{theme.FOREGROUND_MUTED}]Run usepr from inside a git working tree "
+            f"(or `cd` into one first).[/{theme.FOREGROUND_MUTED}]",
+            highlight=False,
+        )
         sys.exit(2)
 
 
