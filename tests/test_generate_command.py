@@ -41,6 +41,7 @@ def deps() -> Iterator[dict[str, MagicMock]]:
         patch(f"{MODULE}.get_templates") as get_templates,
         patch(f"{MODULE}.generate_summary") as generate_summary,
         patch(f"{MODULE}.pyperclip.copy") as copy,
+        patch("usepr.utils.git.ensure_git_repo") as ensure_git_repo,
         patch(
             "usepr.utils.git.get_default_branch", return_value="main"
         ) as get_default_branch,
@@ -69,6 +70,7 @@ def deps() -> Iterator[dict[str, MagicMock]]:
             "get_templates": get_templates,
             "generate_summary": generate_summary,
             "copy": copy,
+            "ensure_git_repo": ensure_git_repo,
             "get_default_branch": get_default_branch,
             "get_branch_selection_options": get_branch_selection_options,
         }
@@ -159,6 +161,17 @@ class TestPromptForTemplate:
 
 
 class TestHandle:
+    def test_aborts_outside_git_repo(self, deps: dict[str, MagicMock]) -> None:
+        deps["ensure_git_repo"].side_effect = SystemExit(2)
+
+        with pytest.raises(SystemExit) as exc_info:
+            _command().handle()
+
+        assert exc_info.value.code == 2
+        deps["ensure_git_repo"].assert_called_once_with(os.path.abspath("."))
+        deps["configure_dspy"].assert_not_called()
+        deps["menu"].select.assert_not_called()
+
     def test_aborts_when_no_branch_selected(self, deps: dict[str, MagicMock]) -> None:
         deps["menu"].select.return_value = None
 
