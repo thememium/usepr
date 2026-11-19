@@ -120,6 +120,30 @@ class TestEnsureGitRepo:
             ensure_git_repo("/not/a/repo")
         assert exc_info.value.code == 2
 
+    @patch("usepr.utils.git.console")
+    @patch("usepr.utils.git.run")
+    def test_invalid_repo_prints_friendly_error(
+        self, mock_run: MagicMock, mock_console: MagicMock
+    ) -> None:
+        mock_run.side_effect = subprocess.CalledProcessError(128, "git")
+
+        with pytest.raises(SystemExit):
+            ensure_git_repo("/not/a/repo")
+
+        printed = " ".join(str(call) for call in mock_console.print.call_args_list)
+        assert "not a git repository" in printed
+        assert "/not/a/repo" in printed
+        assert "git working tree" in printed
+
+    @patch("usepr.utils.git.run")
+    def test_bare_repo_exits(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = "false"
+
+        with pytest.raises(SystemExit) as exc_info:
+            ensure_git_repo("/bare/repo")
+
+        assert exc_info.value.code == 2
+
 
 # ---------------------------------------------------------------------------
 # get_default_branch()
