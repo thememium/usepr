@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.10 (2026-11-19)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.9...v0.1.10)
+
+### 🚀 Enhancements
+
+- **usecli.config**: add runtime configuration sections ([072b767](https://github.com/thememium/usepr/commit/072b767e7238802a8f49f73e9a0c831dc548cb43))
+
+### 🏡 Chore
+
+- **deps**: bump typer, usecli, usechange, ty and add package-data ([6a76f79](https://github.com/thememium/usepr/commit/6a76f792233e297f2382d9716894195a4e0f943c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.9 (2026-11-13)
 
 [Compare changes](https://github.com/thememium/usepr/compare/v0.1.8...v0.1.9)
