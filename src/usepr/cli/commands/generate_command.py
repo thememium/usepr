@@ -84,14 +84,19 @@ class GenerateCommand(BaseCommand):
         ] = None,
     ) -> None:
 
-        configure_dspy(model)
-
         repo = os.path.abspath(".")
+
+        from usepr.utils.git import (
+            ensure_git_repo,
+            get_branch_selection_options,
+            get_default_branch,
+        )
+
+        ensure_git_repo(repo)
+        configure_dspy(model)
 
         console.clear()
         console.print(f"[bold {theme.PRIMARY}]Pull Request Summary Generator")
-
-        from usepr.utils.git import get_branch_selection_options, get_default_branch
 
         console.line()
 
