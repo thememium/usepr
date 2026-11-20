@@ -1,18 +1,24 @@
 # Changelog
 
-## v0.1.11 (2026-11-19)
+## v0.1.12 (2026-11-20)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.11...v0.1.12)
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.2.7 and usechange to 0.1.51 ([a14058f](https://github.com/thememium/usepr/commit/a14058f11a7a2dae09d9b67d1fc421846feefc7f))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.11 (2026-11-20)
 
 [Compare changes](https://github.com/thememium/usepr/compare/v0.1.10...v0.1.11)
 
-### 💅 Refactors
+### 🏡 Chore
 
-- **generate_command.py**: reorganize imports and add git repo check before configuring dspy ([c52129b](https://github.com/thememium/usepr/commit/c52129b56e48c24a5be4fde96a7c2ef334ac0b45))
-- improve git repo validation error messages ([fe58037](https://github.com/thememium/usepr/commit/fe580373bc722dd9e0eb0d2fab162d6837105b19))
-
-### ✅ Tests
-
-- **git**: add tests for error handling of invalid and bare repositories ([8a8d207](https://github.com/thememium/usepr/commit/8a8d20731b4da213ae41a5185b67e06139462d5b))
-- **generate-command**: abort when not inside a git repository ([d633ff3](https://github.com/thememium/usepr/commit/d633ff3456ae486475096bcc13e052baae647389))
+- **deps**: bump usecli to 0.2.7 and usechange to 0.1.51 ([a14058f](https://github.com/thememium/usepr/commit/a14058f11a7a2dae09d9b67d1fc421846feefc7f))
 
 ### Contributors
 
