@@ -1390,8 +1390,6 @@ dependencies = [
     { name = "dspy" },
     { name = "pyperclip" },
     { name = "pyyaml" },
-    { name = "rich" },
-    { name = "typer" },
     { name = "usecli" },
 ]
 
@@ -1414,8 +1412,6 @@ requires-dist = [
     { name = "dspy", specifier = ">=3.5.0" },
     { name = "pyperclip", specifier = ">=1.11.0" },
     { name = "pyyaml", specifier = ">=6.0.3" },
-    { name = "rich", specifier = ">=15.0.0" },
-    { name = "typer", specifier = ">=0.29.2" },
     { name = "usecli", specifier = ">=0.2.10" },
 ]
 
