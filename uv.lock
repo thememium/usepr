@@ -43,6 +43,21 @@ wheels = [
 ]
 
 [[package]]
+name = "bandit"
+version = "1.9.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "pyyaml" },
+    { name = "rich" },
+    { name = "stevedore" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/aa/c3/0cb80dfe0f3076e5da7e4c5ad8e57bac6ac357ff4a6406205501cade4965/bandit-1.9.4.tar.gz", hash = "sha256:b589e5de2afe70bd4d53fa0c1da6199f4085af666fde00e8a034f152a52cd628", size = 4242677, upload-time = "2026-02-25T06:44:15.503Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/05/a4/a26d5b25671d27e03afb5401a0be5899d94ff8fab6a698b1ac5be3ec29ef/bandit-1.9.4-py3-none-any.whl", hash = "sha256:f89ffa663767f5a0585ea075f01020207e966a9c0f2b9ef56a57c7963a3f6f8e", size = 134741, upload-time = "2026-02-25T06:44:13.694Z" },
+]
+
+[[package]]
 name = "cachetools"
 version = "8.0.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1192,6 +1207,15 @@ wheels = [
 ]
 
 [[package]]
+name = "stevedore"
+version = "5.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7a/ec/b628c3b1613fe9340de1c5daba957f5b152159ac350b6ce4ad3d2469f822/stevedore-5.10.0.tar.gz", hash = "sha256:6005f32c09dc3159802a61c04862770e439e32db22f6da78ba56e8a735466882", size = 520466, upload-time = "2026-11-12T11:47:05.38Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/10/78/918aaff2864a8829d061db40acb9da04c89e5c3a01d65932b34432ebd78b/stevedore-5.10.0-py3-none-any.whl", hash = "sha256:47c48dc09e75933106c1bba0a7690eef3b5acecdb807df6d47cc40b2532fa927", size = 56789, upload-time = "2026-11-12T11:47:04.273Z" },
+]
+
+[[package]]
 name = "tomli"
 version = "2.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1330,19 +1354,19 @@ wheels = [
 
 [[package]]
 name = "usechange"
-version = "0.1.53"
+version = "0.1.54"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "usecli" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bf/d1/043bd27b1b706f2b46e7ba5cef16d1e999e9e272311cd20fb339c244fc3b/usechange-0.1.53.tar.gz", hash = "sha256:53c34bffa183d6482c605f7bc9ab06dc04062f498bb9f8ac7f50a4b1f7244b70", size = 20843, upload-time = "2026-11-21T23:39:41.608Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/96/46/3eeb8a02c77e81895dece3d10d424212b1189fa76f5ce851bc31c91b1f4d/usechange-0.1.54.tar.gz", hash = "sha256:7245f4f4dabf3b8cb311a0f099983d8880fc93106bb843eab83593b4aeb48334", size = 20836, upload-time = "2026-11-22T16:22:05.29Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f1/23/258ac008aca981d42317cb09a0f61f357b127f27843186e6329cb129dbc4/usechange-0.1.53-py3-none-any.whl", hash = "sha256:efa0b4eeb9fe957c3e93c549db170f65dbb587ac8999678b2e15abf254876355", size = 27167, upload-time = "2026-11-21T23:39:40.867Z" },
+    { url = "https://files.pythonhosted.org/packages/e2/37/a95f4f5a82502fef946a5daf0d2b6f176f970ee76bc6e374249d887e4e92/usechange-0.1.54-py3-none-any.whl", hash = "sha256:e4bb84f2ad4043c84281e8171764bcbe79ee65550eca7b5f3f76d07d4742a549", size = 27169, upload-time = "2026-11-22T16:22:04.592Z" },
 ]
 
 [[package]]
 name = "usecli"
-version = "0.2.8"
+version = "0.2.10"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "case-converter" },
@@ -1353,9 +1377,9 @@ dependencies = [
     { name = "simple-term-menu" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9a/db/2929a9521ac3ee132c0b4d7a0f87c833f5ae810adefa6a757f5a59e4c2ce/usecli-0.2.8.tar.gz", hash = "sha256:10edd6d402a1b651172b3e77fe9c302af83fd396456e6a27bbe8e68e01e394a5", size = 120156, upload-time = "2026-11-21T23:30:23.214Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/39/dd/1a917cf1c71a9bbd6b8270598737edb4d0a9b57699089cce9989a1f7a21d/usecli-0.2.10.tar.gz", hash = "sha256:9c68c2ead0698c54604d70815b4f4368fad148b8b3dbaf87209320de121785b3", size = 143156, upload-time = "2026-11-22T16:18:18.01Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f1/8f/fb224cb081c7294a6b34c3c2a552bb9ee28341f2aa800bf84cf99ce94cfd/usecli-0.2.8-py3-none-any.whl", hash = "sha256:d133ebcd7c5a8efff2d25818ab715408e67697749623edfe2c4236a87c46d482", size = 149664, upload-time = "2026-11-21T23:30:21.65Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/66/65e95fe7c4c049840a75c3fa7ec1419b8360c0e765530b51407876a70f51/usecli-0.2.10-py3-none-any.whl", hash = "sha256:97e2ee7a1528a8290335f1a883fd920f8807d87fef1e1a8aab64395adb71b42b", size = 170229, upload-time = "2026-11-22T16:18:16.873Z" },
 ]
 
 [[package]]
@@ -1373,6 +1397,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "bandit" },
     { name = "deptry" },
     { name = "isort" },
     { name = "poethepoet" },
@@ -1391,11 +1416,12 @@ requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "rich", specifier = ">=15.0.0" },
     { name = "typer", specifier = ">=0.29.2" },
-    { name = "usecli", specifier = ">=0.2.8" },
+    { name = "usecli", specifier = ">=0.2.10" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "bandit", specifier = ">=1.9.4" },
     { name = "deptry", specifier = ">=0.25.1" },
     { name = "isort", specifier = ">=9.0.2" },
     { name = "poethepoet", specifier = ">=0.49.0" },
@@ -1404,7 +1430,7 @@ dev = [
     { name = "pytest-xdist", extras = ["psutil"], specifier = ">=3.8.0" },
     { name = "ruff", specifier = ">=0.17.5" },
     { name = "ty", specifier = ">=0.0.107" },
-    { name = "usechange", specifier = ">=0.1.53" },
+    { name = "usechange", specifier = ">=0.1.54" },
 ]
 
 [[package]]
