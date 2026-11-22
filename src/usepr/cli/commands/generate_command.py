@@ -6,10 +6,17 @@ import os
 from typing import Annotated
 
 import pyperclip
-import typer
-from rich.panel import Panel
-from rich.syntax import Syntax
-from usecli import BaseCommand, Menu, Prompt, Spinner, console, theme
+from usecli import (
+    BaseCommand,
+    Menu,
+    Option,
+    Panel,
+    Prompt,
+    Spinner,
+    Syntax,
+    console,
+    theme,
+)
 
 from usepr.configs.dspy import configure_dspy
 from usepr.services.pr_summary_service import (
@@ -80,7 +87,7 @@ class GenerateCommand(BaseCommand):
         self,
         model: Annotated[
             str | None,
-            typer.Option("-m", "--model", help="Override the default LLM model."),
+            Option("-m", "--model", help="Override the default LLM model."),
         ] = None,
     ) -> None:
 
