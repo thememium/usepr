@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.1.13 (2026-11-22)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.12...v0.1.13)
+
+### 🚀 Enhancements
+
+- **poe**: add dev-interactive task for interactive development ([9d27862](https://github.com/thememium/usepr/commit/9d27862a2e26a9120db505cc2fc3b99f43918505))
+
+### 🩹 Fixes
+
+- **pyproject.toml**: add pytest-xdist[psutil] for faster parallel tests ([fc7a523](https://github.com/thememium/usepr/commit/fc7a523ab1aecda41e4d5fbec0ebfcf007bd8a0e))
+
+### 🏡 Chore
+
+- **pyproject**: bump usecli to 0.2.8 ([25c732c](https://github.com/thememium/usepr/commit/25c732c19cab6f24d0fccd014e232a186a0e56d9))
+- **pyproject**: use dynamic worker count for pytest tests ([6e0ccbb](https://github.com/thememium/usepr/commit/6e0ccbbc4ffc6e845a9bcd5a4632c862ad2e5258))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.12 (2026-11-20)
 
 [Compare changes](https://github.com/thememium/usepr/compare/v0.1.11...v0.1.12)
