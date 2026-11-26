@@ -41,10 +41,11 @@
 usepr (`usepr`) is a Python CLI that generates pull request summaries from your git commits using AI (DSPy). It analyzes your commit history and produces well-structured, meaningful PR descriptions.
 
 - **AI-powered summaries** - Uses DSPy ChainOfThought to understand and summarize your changes
+- **Conventional PR titles** - Generates a [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) title from your commits and branch name
 - **Template support** - Automatically detects and uses PR templates from your repository
 - **Flexible diffing** - Generate summaries between any branches, tags, or commits
 - **Interactive prompts** - Guided workflow with base branch and issue selection
-- **Clipboard integration** - Copy generated summaries directly to clipboard
+- **Clipboard integration** - Copy the generated title and summary directly to clipboard, independently
 - **Model override** - Use different LLM models via the `-m` flag
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -90,10 +91,11 @@ The interactive workflow will:
 1. Detect your repository's default branch
 2. Prompt for a base branch to diff against
 3. Gather commits between base and HEAD
-4. Ask for related issues (optional)
-5. Detect and offer PR templates (if any)
-6. Generate and display the summary
-7. Offer to copy to clipboard
+4. Read the current branch name for extra intent context
+5. Ask for related issues (optional)
+6. Detect and offer PR templates (if any)
+7. Generate and display a Conventional Commits title, then offer to copy it
+8. Generate and display the summary, then offer to copy it
 
 ### Use a Custom Model
 
