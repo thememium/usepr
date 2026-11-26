@@ -11,6 +11,7 @@ from usepr.utils.git import (
     ensure_git_repo,
     get_branch_selection_options,
     get_commits_between,
+    get_current_branch,
     get_default_branch,
     get_local_branches,
     parse_commits,
@@ -215,6 +216,34 @@ class TestGetLocalBranches:
         mock_run.return_value = "main"
         get_local_branches("/some/repo")
         assert mock_run.call_args[1]["cwd"] == "/some/repo"
+
+
+# ---------------------------------------------------------------------------
+# get_current_branch()
+# ---------------------------------------------------------------------------
+
+
+class TestGetCurrentBranch:
+    @patch("usepr.utils.git.run")
+    def test_returns_branch_name(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = "feature/login"
+
+        assert get_current_branch("/repo") == "feature/login"
+        mock_run.assert_called_once_with(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd="/repo"
+        )
+
+    @patch("usepr.utils.git.run")
+    def test_detached_head_returns_empty_string(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = "HEAD"
+
+        assert get_current_branch("/repo") == ""
+
+    @patch("usepr.utils.git.run")
+    def test_git_failure_returns_empty_string(self, mock_run: MagicMock) -> None:
+        mock_run.side_effect = subprocess.CalledProcessError(128, "git")
+
+        assert get_current_branch("/repo") == ""
 
 
 # ---------------------------------------------------------------------------
