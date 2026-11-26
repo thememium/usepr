@@ -22,6 +22,7 @@ from usepr.configs.dspy import configure_dspy
 from usepr.services.pr_summary_service import (
     gather_commits,
     generate_summary,
+    generate_title,
     get_templates,
 )
 from usepr.utils.github import PrTemplate
@@ -83,6 +84,32 @@ class GenerateCommand(BaseCommand):
             return None
         return templates[idx - 1]
 
+    def _offer_clipboard(self, content: str, label: str) -> None:
+        """Ask whether to copy content, then copy it and report the result."""
+        copy_to_clipboard = (
+            (
+                Prompt.ask(
+                    f"\n[bold {theme.WARNING}]Copy {label.lower()} to clipboard?[/bold {theme.WARNING}]",
+                    default="y",
+                    choices=["y", "n"],
+                )
+                or ""
+            )
+            .lower()
+            .strip()
+        )
+        if copy_to_clipboard not in ["y", "yes"]:
+            return
+        try:
+            pyperclip.copy(content)
+            console.print(
+                f"[bold {theme.SECONDARY}]✓ {label} copied to clipboard![/bold {theme.SECONDARY}]"
+            )
+        except (pyperclip.PyperclipException, OSError) as e:
+            console.print(
+                f"[bold {theme.ERROR}]✗ Failed to copy {label.lower()} to clipboard: {e}[/bold {theme.ERROR}]"
+            )
+
     def handle(
         self,
         model: Annotated[
@@ -96,6 +123,7 @@ class GenerateCommand(BaseCommand):
         from usepr.utils.git import (
             ensure_git_repo,
             get_branch_selection_options,
+            get_current_branch,
             get_default_branch,
         )
 
@@ -157,6 +185,28 @@ class GenerateCommand(BaseCommand):
         selected_template = self._prompt_for_template(templates)
         template_content = selected_template.content if selected_template else None
 
+        branch_name = get_current_branch(repo) or None
+
+        with Spinner("Generating PR title..."):
+            title_result = generate_title(
+                commits=commit_ctx.commits,
+                related_issues=related_issues,
+                branch_name=branch_name,
+            )
+
+        console.print()
+        console.print(
+            Panel(
+                title_result.title,
+                title="Pull Request Title",
+                border_style=theme.SECONDARY,
+                title_align="left",
+            )
+        )
+        self._offer_clipboard(title_result.title, "Title")
+
+        console.line()
+
         with Spinner("Generating PR summary..."):
             result = generate_summary(
                 commits=commit_ctx.commits,
@@ -182,25 +232,4 @@ class GenerateCommand(BaseCommand):
             )
         )
 
-        copy_to_clipboard = (
-            (
-                Prompt.ask(
-                    f"\n[bold {theme.WARNING}]Copy to clipboard?[/bold {theme.WARNING}]",
-                    default="y",
-                    choices=["y", "n"],
-                )
-                or ""
-            )
-            .lower()
-            .strip()
-        )
-        if copy_to_clipboard in ["y", "yes"]:
-            try:
-                pyperclip.copy(result.summary)
-                console.print(
-                    f"[bold {theme.SECONDARY}]✓ Summary copied to clipboard![/bold {theme.SECONDARY}]"
-                )
-            except (pyperclip.PyperclipException, OSError) as e:
-                console.print(
-                    f"[bold {theme.ERROR}]✗ Failed to copy to clipboard: {e}[/bold {theme.ERROR}]"
-                )
+        self._offer_clipboard(result.summary, "Summary")
