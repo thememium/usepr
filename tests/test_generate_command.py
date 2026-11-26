@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import os
 from collections.abc import Iterator
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 import pyperclip
 import pytest
 import typer
 
 from usepr.cli.commands.generate_command import OTHER_BRANCH, GenerateCommand
-from usepr.services.pr_summary_service import CommitContext, SummaryResult
+from usepr.services.pr_summary_service import CommitContext, SummaryResult, TitleResult
 from usepr.utils.github import PrTemplate
 
 MODULE = "usepr.cli.commands.generate_command"
@@ -40,11 +40,15 @@ def deps() -> Iterator[dict[str, MagicMock]]:
         patch(f"{MODULE}.gather_commits") as gather_commits,
         patch(f"{MODULE}.get_templates") as get_templates,
         patch(f"{MODULE}.generate_summary") as generate_summary,
+        patch(f"{MODULE}.generate_title") as generate_title,
         patch(f"{MODULE}.pyperclip.copy") as copy,
         patch("usepr.utils.git.ensure_git_repo") as ensure_git_repo,
         patch(
             "usepr.utils.git.get_default_branch", return_value="main"
         ) as get_default_branch,
+        patch(
+            "usepr.utils.git.get_current_branch", return_value="feature/x"
+        ) as get_current_branch,
         patch(
             "usepr.utils.git.get_branch_selection_options",
             return_value=["main", "dev"],
@@ -60,6 +64,9 @@ def deps() -> Iterator[dict[str, MagicMock]]:
         generate_summary.return_value = SummaryResult(
             reasoning="reasoning", summary="## Title"
         )
+        generate_title.return_value = TitleResult(
+            reasoning="title reasoning", title="feat: add thing"
+        )
         yield {
             "console": console,
             "configure_dspy": configure_dspy,
@@ -69,9 +76,11 @@ def deps() -> Iterator[dict[str, MagicMock]]:
             "gather_commits": gather_commits,
             "get_templates": get_templates,
             "generate_summary": generate_summary,
+            "generate_title": generate_title,
             "copy": copy,
             "ensure_git_repo": ensure_git_repo,
             "get_default_branch": get_default_branch,
+            "get_current_branch": get_current_branch,
             "get_branch_selection_options": get_branch_selection_options,
         }
 
@@ -196,38 +205,78 @@ class TestHandle:
         deps["configure_dspy"].assert_called_once_with("openrouter/test")
         deps["get_branch_selection_options"].assert_called_once_with(repo, "main")
         deps["gather_commits"].assert_called_once_with(repo, "dev")
+        deps["generate_title"].assert_not_called()
         deps["generate_summary"].assert_not_called()
 
     def test_successful_generation_and_copy(self, deps: dict[str, MagicMock]) -> None:
-        deps["prompt"].ask.side_effect = ["issue-42", "y", "y"]
+        deps["prompt"].ask.side_effect = ["issue-42", "y", "y", "y"]
         deps["get_templates"].return_value = [_template(content="Use this template")]
 
         _command().handle()
 
         deps["get_templates"].assert_called_once_with(os.path.abspath("."))
+        deps["generate_title"].assert_called_once_with(
+            commits=["abc123"],
+            related_issues="issue-42",
+            branch_name="feature/x",
+        )
         deps["generate_summary"].assert_called_once_with(
             commits=["abc123"],
             related_issues="issue-42",
             template="Use this template",
         )
-        deps["copy"].assert_called_once_with("## Title")
+        deps["copy"].assert_has_calls([call("feat: add thing"), call("## Title")])
+
+    def test_title_generated_before_summary(self, deps: dict[str, MagicMock]) -> None:
+        manager = MagicMock()
+        manager.attach_mock(deps["generate_title"], "generate_title")
+        manager.attach_mock(deps["generate_summary"], "generate_summary")
+        deps["prompt"].ask.side_effect = ["", "", ""]
+
+        _command().handle()
+
+        assert [c[0] for c in manager.mock_calls] == [
+            "generate_title",
+            "generate_summary",
+        ]
+
+    def test_passes_none_branch_when_detached(self, deps: dict[str, MagicMock]) -> None:
+        deps["get_current_branch"].return_value = ""
+        deps["prompt"].ask.side_effect = ["", "", ""]
+
+        _command().handle()
+
+        deps["generate_title"].assert_called_once_with(
+            commits=["abc123"],
+            related_issues="",
+            branch_name=None,
+        )
 
     def test_declines_clipboard_when_answer_blank(
         self, deps: dict[str, MagicMock]
     ) -> None:
-        deps["prompt"].ask.side_effect = ["", None]
+        deps["prompt"].ask.side_effect = ["", "", None]
 
         _command().handle()
 
         deps["copy"].assert_not_called()
 
+    def test_declines_title_copy_but_copies_summary(
+        self, deps: dict[str, MagicMock]
+    ) -> None:
+        deps["prompt"].ask.side_effect = ["", "n", "y"]
+
+        _command().handle()
+
+        deps["copy"].assert_called_once_with("## Title")
+
     def test_reports_clipboard_failure(self, deps: dict[str, MagicMock]) -> None:
-        deps["prompt"].ask.side_effect = ["", "y"]
+        deps["prompt"].ask.side_effect = ["", "", "y"]
         deps["copy"].side_effect = pyperclip.PyperclipException("no clipboard")
 
         _command().handle()
 
         assert any(
-            "Failed to copy" in str(call)
+            "Failed to copy summary" in str(call)
             for call in deps["console"].print.call_args_list
         )
