@@ -131,6 +131,24 @@ def get_local_branches(repo_path: str) -> list[str]:
     return [branch for branch in output.splitlines() if branch.strip()]
 
 
+def get_current_branch(repo_path: str) -> str:
+    """
+    Get the name of the currently checked-out branch.
+
+    Args:
+        repo_path: Path to the repository.
+
+    Returns:
+        The branch name, or an empty string when HEAD is detached or the
+        branch cannot be determined.
+    """
+    try:
+        branch = run(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=repo_path)
+    except subprocess.CalledProcessError:
+        return ""
+    return "" if branch == "HEAD" else branch
+
+
 def get_branch_selection_options(
     repo_path: str, default_branch: str | None = None
 ) -> list[str]:
