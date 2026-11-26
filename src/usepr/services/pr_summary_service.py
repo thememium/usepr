@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from usepr.modules.pull_request_summary_generator import (
     PullRequestSummaryGeneratorModule,
 )
+from usepr.modules.pull_request_title_generator import PullRequestTitleGeneratorModule
 from usepr.utils.git import (
     ensure_git_repo,
     get_commits_between,
@@ -23,6 +24,14 @@ class SummaryResult:
 
     reasoning: str
     summary: str
+
+
+@dataclass
+class TitleResult:
+    """Result from PR title generation."""
+
+    reasoning: str
+    title: str
 
 
 @dataclass
@@ -99,6 +108,34 @@ def generate_summary(
     return SummaryResult(
         reasoning=result.reasoning,
         summary=result.summary,
+    )
+
+
+def generate_title(
+    commits: list[str],
+    related_issues: str | None = None,
+    branch_name: str | None = None,
+) -> TitleResult:
+    """Generate a Conventional Commits v1.0.0 PR title from commits.
+
+    Args:
+        commits: List of commit messages.
+        related_issues: Optional comma-separated related issues.
+        branch_name: Optional current branch name for extra intent context.
+
+    Returns:
+        TitleResult with reasoning and a single-line title.
+    """
+    program = PullRequestTitleGeneratorModule()
+    result = program(
+        commits=commits,
+        related_issues=related_issues,
+        branch_name=branch_name,
+    )
+
+    return TitleResult(
+        reasoning=result.reasoning,
+        title=result.title.strip(),
     )
 
 
