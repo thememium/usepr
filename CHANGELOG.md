@@ -1,21 +1,26 @@
 # Changelog
 
-## v0.1.15 (2026-11-26)
+## v0.1.16 (2026-11-27)
 
-[Compare changes](https://github.com/thememium/usepr/compare/v0.1.14...v0.1.15)
-
-### 🚀 Enhancements
-
-- **pull-request**: add pull request title generator (#3) ([4b51c1f](https://github.com/thememium/usepr/commit/4b51c1fc5b0af5610e4609890a4671df6792048b))
-
-### 💅 Refactors
-
-- **generate_command**: replace typer.Option with usecli Option for consistency ([5cc86ee](https://github.com/thememium/usepr/commit/5cc86eebfec97a988efeb19ef97a8a96ddbbe5a9))
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.15...v0.1.16)
 
 ### 🏡 Chore
 
-- **pyproject**: remove unused dependencies rich and typer ([3a5da93](https://github.com/thememium/usepr/commit/3a5da930d32820c7d08334395b65d9d56ed62e9a))
-- **pyproject**: bump usecli to 0.2.10 and usechange to 0.1.54; add bandit ([b217c69](https://github.com/thememium/usepr/commit/b217c695b9de6ae39ffeb1f2206e29ad64786d29))
+- **deps**: bump pyyaml, usecli, ruff, ty, usechange to patch releases ([ed34f6e](https://github.com/thememium/usepr/commit/ed34f6e1609d7bc205e565f5457d407e892e185a))
+- **pyproject.toml**: bump usecli from 0.2.10 to 0.2.12 ([81dc049](https://github.com/thememium/usepr/commit/81dc0493a99604afabc2408add653b6842943c9c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.15 (2026-11-27)
+
+[Compare changes](https://github.com/thememium/usepr/compare/v0.1.14...v0.1.15)
+
+### 🏡 Chore
+
+- **deps**: bump pyyaml, usecli, ruff, ty, usechange to patch releases ([ed34f6e](https://github.com/thememium/usepr/commit/ed34f6e1609d7bc205e565f5457d407e892e185a))
+- **pyproject.toml**: bump usecli from 0.2.10 to 0.2.12 ([81dc049](https://github.com/thememium/usepr/commit/81dc0493a99604afabc2408add653b6842943c9c))
 
 ### Contributors
 
