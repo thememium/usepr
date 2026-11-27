@@ -1366,7 +1366,7 @@ wheels = [
 
 [[package]]
 name = "usecli"
-version = "0.2.10"
+version = "0.2.12"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "case-converter" },
@@ -1377,9 +1377,9 @@ dependencies = [
     { name = "simple-term-menu" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/39/dd/1a917cf1c71a9bbd6b8270598737edb4d0a9b57699089cce9989a1f7a21d/usecli-0.2.10.tar.gz", hash = "sha256:9c68c2ead0698c54604d70815b4f4368fad148b8b3dbaf87209320de121785b3", size = 143156, upload-time = "2026-11-22T16:18:18.01Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c5/e1/5491f13b487d65e983ffe63ab935c548807ffb9ef5b09130faa3226c5174/usecli-0.2.12.tar.gz", hash = "sha256:50a81d5a5bad60324bf72f06250e5fb73fed749694c84ae7ae65c16f920f4682", size = 148841, upload-time = "2026-11-23T06:20:16.597Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e0/66/65e95fe7c4c049840a75c3fa7ec1419b8360c0e765530b51407876a70f51/usecli-0.2.10-py3-none-any.whl", hash = "sha256:97e2ee7a1528a8290335f1a883fd920f8807d87fef1e1a8aab64395adb71b42b", size = 170229, upload-time = "2026-11-22T16:18:16.873Z" },
+    { url = "https://files.pythonhosted.org/packages/e3/54/31b8be9c1884368a96dbf71c3993973d834d8ceea0ec3d8dde71014ff119/usecli-0.2.12-py3-none-any.whl", hash = "sha256:8878e4db5038dd471c9f8c152e6bc9b1c33fe7478acedd26f6fb63f0f3ed8dd9", size = 175995, upload-time = "2026-11-23T06:20:15.497Z" },
 ]
 
 [[package]]
@@ -1412,7 +1412,7 @@ requires-dist = [
     { name = "dspy", specifier = ">=3.5.0" },
     { name = "pyperclip", specifier = ">=1.11.0" },
     { name = "pyyaml", specifier = ">=6.0.3" },
-    { name = "usecli", specifier = ">=0.2.10" },
+    { name = "usecli", specifier = ">=0.2.12" },
 ]
 
 [package.metadata.requires-dev]

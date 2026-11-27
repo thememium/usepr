@@ -17,7 +17,7 @@ dependencies = [
   "dspy>=3.5.0",
   "pyperclip>=1.11.0",
   "pyyaml>=6.0.3",
-  "usecli>=0.2.10",
+  "usecli>=0.2.12",
 ]
 
 [project.scripts]
